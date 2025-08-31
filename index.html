@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Satva Care — Hospital Portal</title>
+    <meta name="description"
+        content="All‑in‑one hospital portal for patients, reception, and doctors. Fully responsive single‑file template using HTML, CSS and JavaScript (no backend)." />
+    <style>
+        :root {
+            --bg: #0b1020;
+            /* deep blue-black */
+            --panel: #121936;
+            --muted: #9aa4c1;
+            --text: #eef1ff;
+            --accent: #5ef0c1;
+            /* mint */
+            --accent-2: #8bb3ff;
+            /* soft blue */
+            --danger: #ff7a7a;
+            --warn: #ffd86b;
+            --ok: #67f69a;
+            --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial;
+            color: var(--text);
+            background: radial-gradient(1200px 600px at 15% -10%, #1c2658 0%, transparent 60%),
+                radial-gradient(800px 400px at 120% 10%, #1a3a6f 0%, transparent 60%),
+                var(--bg);
+        }
+
+        a {
+            color: inherit
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(11, 16, 32, .7);
+            backdrop-filter: saturate(140%) blur(14px);
+            border-bottom: 1px solid #202a55
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 18px
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 0
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .3px
+        }
+
+        .brand svg {
+            width: 28px;
+            height: 28px
+        }
+
+        .navlinks {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-left: auto
+        }
+
+        .btn {
+            appearance: none;
+            border: 0;
+            cursor: pointer;
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-weight: 600;
+            color: #0b1020;
+            background: var(--accent)
+        }
+
+        .btn.secondary {
+            background: #273160;
+            color: var(--text);
+            border: 1px solid #303c75
+        }
+
+        .btn.ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid #32407a
+        }
+
+        .btn.small {
+            padding: 6px 10px;
+            font-size: .9rem
+        }
+
+        .btn.danger {
+            background: var(--danger);
+            color: #1a0f0f
+        }
+
+        .grid {
+            display: grid;
+            gap: 16px
+        }
+
+        @media(min-width:720px) {
+            .grid.cols-2 {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(min-width:980px) {
+            .grid.cols-3 {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        .card {
+            background: linear-gradient(180deg, #12193a 0%, #0f1630 100%);
+            border: 1px solid #23306a;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px
+        }
+
+        .card h3 {
+            margin: 0 0 8px
+        }
+
+        .hero {
+            display: grid;
+            gap: 18px;
+            align-items: center;
+            padding: 26px 0
+        }
+
+        @media(min-width:900px) {
+            .hero {
+                grid-template-columns: 1.1fr .9fr
+            }
+        }
+
+        .hero .big {
+            font-size: clamp(28px, 4.4vw, 48px);
+            line-height: 1.05;
+            margin: 6px 0
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #31407d;
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: var(--muted)
+        }
+
+        .kpi {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+
+        .kpi .item {
+            flex: 1 1 160px;
+            background: #0f1733;
+            border: 1px dashed #2a396f;
+            border-radius: 12px;
+            padding: 12px
+        }
+
+        .kpi b {
+            font-size: 22px;
+            display: block
+        }
+
+        .section {
+            padding: 22px 0
+        }
+
+        .section h2 {
+            margin: 0 0 10px;
+            font-size: clamp(22px, 3.6vw, 34px)
+        }
+
+        label {
+            display: block;
+            margin: 8px 0 6px;
+            color: #bdc7ee;
+            font-size: .95rem
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: #0d1430;
+            border: 1px solid #2a376d;
+            color: var(--text);
+            padding: 10px 12px;
+            border-radius: 12px;
+            outline: none
+        }
+
+        textarea {
+            min-height: 96px
+        }
+
+        .row {
+            display: grid;
+            gap: 12px
+        }
+
+        @media(min-width:720px) {
+            .row.cols-2 {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        @media(min-width:980px) {
+            .row.cols-3 {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: .9rem
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #23306a;
+            text-align: left
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background: #10183a;
+            z-index: 1
+        }
+
+        .tablewrap {
+            max-height: 340px;
+            overflow: auto;
+            border: 1px solid #23306a;
+            border-radius: 12px
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 10px 0 16px
+        }
+
+        .tab {
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid #2f3b74;
+            color: var(--muted);
+            cursor: pointer
+        }
+
+        .tab.active {
+            color: #0b1020;
+            background: var(--accent);
+            border-color: transparent
+        }
+
+        .status {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            font-weight: 600
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: var(--warn)
+        }
+
+        .dot.ok {
+            background: var(--ok)
+        }
+
+        .dot.danger {
+            background: var(--danger)
+        }
+
+        .footer {
+            padding: 40px 0;
+            color: #93a1d9;
+            border-top: 1px solid #23306a;
+            margin-top: 26px
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0f1733;
+            border: 1px solid #2a396f;
+            padding: 10px 14px;
+            border-radius: 12px;
+            display: none
+        }
+
+        .hide {
+            display: none !important
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap nav">
+            <div class="brand" aria-label="Satva Care">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9Z" stroke="#5ef0c1"
+                        stroke-width="1.5" />
+                    <path d="M7 12h10M12 7v10" stroke="#8bb3ff" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                Satva Care
+            </div>
+            <nav class="navlinks" aria-label="Primary">
+                <button class="btn ghost" onclick="showView('home')">Home</button>
+                <button class="btn ghost" onclick="showView('patient')">Patient</button>
+                <button class="btn ghost" onclick="showView('reception')">Reception</button>
+                <button class="btn ghost" onclick="showView('doctor')">Doctor</button>
+                <button class="btn ghost" onclick="showView('admin')">Admin</button>
+            </nav>
+            <button class="btn small" id="dmToggle" aria-pressed="false">Dark mode</button>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <!-- HERO / HOME -->
+        <section id="home" class="hero view">
+            <div>
+                <span class="pill">All‑in‑one hospital portal</span>
+                <h1 class="big">Register patients, file cases, book appointments, manage tokens & bills — in one
+                    responsive website.</h1>
+                <p class="hint">This demo is 100% front‑end (HTML/CSS/JS) so you can try flows without a server. Data is
+                    stored in your browser (localStorage). Swap to a real backend later.</p>
+                <div class="kpi">
+                    <div class="item"><span class="hint">Today’s Appointments</span> <b id="kpi-appts">0</b></div>
+                    <div class="item"><span class="hint">Open Cases</span> <b id="kpi-cases">0</b></div>
+                    <div class="item"><span class="hint">Pending Payments</span> <b id="kpi-pending">0</b></div>
+                </div>
+                <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+                    <button class="btn" onclick="showView('patient')">Start as Patient</button>
+                    <button class="btn secondary" onclick="showView('reception')">Reception Desk</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Quick Features</h3>
+                <ul class="hint">
+                    <li>Patient registration & login (simple OTP‑PIN demo)</li>
+                    <li>Case submission with department & symptoms</li>
+                    <li>Appointment booking + token generator</li>
+                    <li>Reception dashboard: triage, assign doctor, mark paid</li>
+                    <li>Doctor dashboard: view cases, add notes & prescriptions</li>
+                    <li>Export CSV for reports; print token/receipt</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PATIENT PORTAL -->
+        <section id="patient" class="section view hide">
+            <h2>Patient Portal</h2>
+            <div class="grid cols-2">
+                <div class="card">
+                    <h3>New Patient Registration</h3>
+                    <form id="form-register">
+                        <div class="row cols-2">
+                            <div>
+                                <label for="regName">Full Name</label>
+                                <input id="regName" required placeholder="e.g., Priya Shah" />
+                            </div>
+                            <div>
+                                <label for="regPhone">Mobile</label>
+                                <input id="regPhone" required pattern="[0-9]{10}" placeholder="10‑digit" />
+                            </div>
+                        </div>
+                        <div class="row cols-3">
+                            <div>
+                                <label for="regAge">Age</label>
+                                <input id="regAge" type="number" min="0" max="120" required />
+                            </div>
+                            <div>
+                                <label for="regGender">Gender</label>
+                                <select id="regGender" required>
+                                    <option value="">Select</option>
+                                    <option>Female</option>
+                                    <option>Male</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="regPIN">Create 4‑digit PIN</label>
+                                <input id="regPIN" required pattern="[0-9]{4}" placeholder="e.g., 1234" />
+                            </div>
+                        </div>
+                        <label for="regAddr">Address</label>
+                        <textarea id="regAddr" placeholder="Street, City"></textarea>
+                        <button class="btn" type="submit">Register</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Login</h3>
+                    <form id="form-login">
+                        <label for="loginPhone">Mobile</label>
+                        <input id="loginPhone" required pattern="[0-9]{10}" />
+                        <label for="loginPIN">PIN</label>
+                        <input id="loginPIN" required pattern="[0-9]{4}" />
+                        <button class="btn" type="submit">Login</button>
+                    </form>
+                    <div id="loginState" class="hint" style="margin-top:8px"></div>
+
+                    <hr style="border-color:#223066;margin:16px 0" />
+
+                    <h3>Submit a Case</h3>
+                    <form id="form-case" class="hide">
+                        <div class="row cols-2">
+                            <div>
+                                <label for="caseDept">Department</label>
+                                <select id="caseDept" required>
+                                    <option value="">Select</option>
+                                    <option>Cardiology</option>
+                                    <option>Orthopedics</option>
+                                    <option>General Medicine</option>
+                                    <option>Pediatrics</option>
+                                    <option>Dermatology</option>
+                                    <option>Gynecology</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="caseDate">Preferred Date</label>
+                                <input id="caseDate" type="date" required />
+                            </div>
+                        </div>
+                        <label for="caseSymptoms">Symptoms</label>
+                        <textarea id="caseSymptoms" required placeholder="Describe your issue"></textarea>
+                        <div class="row cols-2">
+                            <div>
+                                <label for="caseFiles">Attach Reports (demo)</label>
+                                <input id="caseFiles" type="file" multiple />
+                                <p class="hint">Files are not uploaded in this demo.
+                                </p>
+                            </div>
+                            <div>
+                                <label>&nbsp;</label>
+                                <button class="btn" type="submit">Submit Case</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- RECEPTION -->
+        <section id="reception" class="section view hide">
+            <label for="doctorFilter">Filter by Department:</label>
+            <select id="doctorFilter" onchange="filterDoctors()">
+                <option value="">-- All Departments --</option>
+                <option>Cardiology</option>
+                <option>Orthopedics</option>
+                <option>General Medicine</option>
+                <option>Pediatrics</option>
+                <option>Dermatology</option>
+                <option>Gynecology</option>
+                <option>Neurology</option>
+                <option>Gastroenterology</option>
+                <option>Nephrology</option>
+                <option>Urology</option>
+                <option>ENT (Ear, Nose, Throat)</option>
+                <option>Ophthalmology</option>
+                <option>Oncology</option>
+                <option>Psychiatry</option>
+                <option>Radiology</option>
+                <option>Anesthesiology</option>
+                <option>Emergency / Casualty</option>
+                <option>Physiotherapy</option>
+                <option>Dental</option>
+                <option>Pulmonology</option>
+            </select>\n\n<h3>Available Doctors</h3>\n<ul id=\"doctorList\"></ul>
+
+
+            <h2>Reception Dashboard</h2>
+            <div class="tabs" role="tablist">
+                <button class="tab active" id="tabCases" onclick="switchRecTab('cases')">Cases</button>
+                <button class="tab" id="tabAppts" onclick="switchRecTab('appts')">Appointments</button>
+                <button class="tab" id="tabPayments" onclick="switchRecTab('payments')">Payments</button>
+            </div>
+
+            <div id="recCases">
+                <div class="grid cols-3">
+                    <div class="card">
+                        <h3>Create Appointment / Token</h3>
+                        <form id="form-appointment">
+                            <label for="appCase">Select Case</label>
+                            <select id="appCase"></select>
+                            <div class="row cols-2">
+                                <div>
+                                    <label for="appDate">Date</label>
+                                    <input id="appDate" type="date" required />
+                                </div>
+                                <div>
+                                    <label for="appTime">Time</label>
+                                    <input id="appTime" type="time" required />
+                                </div>
+                            </div>
+                            <label for="appDoc">Doctor</label>
+                            <select id="caseDept" required>
+                                <option value="">Select</option>
+                                <option>Cardiology</option>
+                                <option>Orthopedics</option>
+                                <option>General Medicine</option>
+                                <option>Pediatrics</option>
+                                <option>Dermatology</option>
+                                <option>Gynecology</option>
+                                <option>Neurology</option>
+                                <option>Gastroenterology</option>
+                                <option>Nephrology</option>
+                                <option>Urology</option>
+                                <option>ENT (Ear, Nose, Throat)</option>
+                                <option>Ophthalmology</option>
+                                <option>Oncology</option>
+                                <option>Psychiatry</option>
+                                <option>Radiology</option>
+                                <option>Anesthesiology</option>
+                                <option>Emergency / Casualty</option>
+                                <option>Physiotherapy</option>
+                                <option>Dental</option>
+                                <option>Pulmonology</option>
+                            </select>
+
+                            <div class="row cols-2">
+                                <div>
+                                    <label for="appRoom">Room</label>
+                                    <input id="appRoom" placeholder="e.g., 203" />
+                                </div>
+                                <div>
+                                    <label for="appFee">Consultation Fee (₹)</label>
+                                    <input id="appFee" type="number" min="0" value="500" />
+                                </div>
+                            </div>
+                            <button class="btn" type="submit">Generate Token</button>
+                            <button class="btn secondary" type="button" onclick="printToken()">Print Last Token</button>
+                        </form>
+                    </div>
+                    <div class="card" style="grid-column:span 2">
+                        <h3>All Cases</h3>
+                        <div class="tablewrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Token</th>
+                                        <th>Patient</th>
+                                        <th>Dept</th>
+                                        <th>Status</th>
+                                        <th>Doctor</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbl-cases"></tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap">
+                            <button class="btn ghost" onclick="exportCSV('cases')">Export Cases CSV</button>
+                            <button class="btn ghost" onclick="clearDemo()">Clear Demo Data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="recAppts" class="hide">
+                <div class="card">
+                    <h3>Appointments</h3>
+                    <div class="tablewrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Token</th>
+                                    <th>Patient</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Doctor</th>
+                                    <th>Room</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-appts"></tbody>
+                        </table>
+                    </div>
+                    <button class="btn ghost" style="margin-top:10px" onclick="exportCSV('appts')">Export Appointments
+                        CSV</button>
+                </div>
+            </div>
+
+            <div id="recPayments" class="hide">
+                <div class="card">
+                    <h3>Payments</h3>
+                    <div class="tablewrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Token</th>
+                                    <th>Patient</th>
+                                    <th>Fee</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-payments"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DOCTOR -->
+        <section id="doctor" class="section view hide">
+            <h2>Doctor Workspace</h2>
+            <div class="grid cols-2">
+                <div class="card">
+                    <h3>Queue</h3>
+                    <div class="tablewrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Token</th>
+                                    <th>Patient</th>
+                                    <th>Dept</th>
+                                    <th>Symptoms</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbl-doc-queue"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Notes & Prescription</h3>
+                    <form id="form-notes">
+                        <label for="noteToken">Token</label>
+                        <input id="noteToken" readonly placeholder="Select from queue" />
+                        <label for="noteText">Notes</label>
+                        <textarea id="noteText" placeholder="Exam findings, diagnosis..."></textarea>
+                        <label for="rxText">Prescription</label>
+                        <textarea id="rxText" placeholder="Rx: Medicine 1 — 1 tab BD x 5 days"></textarea>
+                        <button class="btn" type="submit">Save & Mark Completed</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- ADMIN -->
+        <section id="admin" class="section view hide">
+            <h2>Admin Settings</h2>
+            <div class="grid cols-3">
+                <div class="card">
+                    <h3>Departments</h3>
+                    <form id="form-dept">
+                        <div class="row cols-2">
+                            <input id="deptName" placeholder="e.g., Neurology" />
+                            <button class="btn" type="submit">Add</button>
+                        </div>
+                    </form>
+                    <ul id="listDept" class="hint"></ul>
+                </div>
+                <div class="card">
+                    <h3>Doctors</h3>
+                    <form id="form-doc">
+                        <div class="row cols-3">
+                            <input id="docName" placeholder="Dr. Name" />
+                            <input id="docDept" placeholder="Department" />
+                            <button class="btn" type="submit">Add</button>
+                        </div>
+                    </form>
+                    <ul id="listDoc" class="hint"></ul>
+                </div>
+                <div class="card">
+                    <h3>Clinic Info</h3>
+                    <label for="clinicName">Name</label>
+                    <input id="clinicName" placeholder="Satva Medical & Heart Hospital" />
+                    <label for="clinicAddr">Address</label>
+                    <textarea id="clinicAddr" placeholder="Full address"></textarea>
+                    <button class="btn" style="margin-top:8px" onclick="saveClinic()">Save</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer class="wrap footer">
+        <div class="grid cols-3">
+            <div>
+                <div class="brand"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true">
+                        <path d="M12 3c4.97 0 9 4.03 9 9s-4.03 9-9 9-9-4.03-9-9 4.03-9 9-9Z" stroke="#5ef0c1"
+                            stroke-width="1.5" />
+                        <path d="M7 12h10M12 7v10" stroke="#8bb3ff" stroke-width="1.5" stroke-linecap="round" />
+                    </svg> Satva Care</div>
+                <p class="hint">Demo UI for a hospital portal. Build a secure backend (Node/Express, Django, or Laravel)
+                    before real use.</p>
+            </div>
+            <div>
+                <p class="hint">Shortcuts</p>
+                <p><a href="#" onclick="showView('patient')">Patient</a> · <a href="#"
+                        onclick="showView('reception')">Reception</a> · <a href="#"
+                        onclick="showView('doctor')">Doctor</a></p>
+            </div>
+            <div>
+                <p class="hint">Made with ❤️ — single file HTML/CSS/JS</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ======= Simple State & Helpers (LocalStorage) =======
+        const S = {
+            patients: JSON.parse(localStorage.getItem('patients') || '[]'),
+            cases: JSON.parse(localStorage.getItem('cases') || '[]'),
+            appts: JSON.parse(localStorage.getItem('appts') || '[]'),
+            doctors: JSON.parse(localStorage.getItem('doctors') || '[]') || [
+                { name: 'Dr. Patel', dept: 'Cardiology' },
+                { name: 'Dr. Shah', dept: 'Orthopedics' },
+                { name: 'Dr. Amin', dept: 'General Medicine' }
+            ],
+            depts: JSON.parse(localStorage.getItem('depts') || '[]') || [
+                'Cardiology', 'Orthopedics', 'General Medicine', 'Pediatrics', 'Dermatology', 'Gynecology',
+                'Neurology', 'Gastroenterology', 'Nephrology', 'Urology', 'ENT (Ear, Nose, Throat)',
+                'Ophthalmology', 'Oncology', 'Psychiatry', 'Radiology', 'Anesthesiology',
+                'Emergency / Casualty', 'Physiotherapy', 'Dental', 'Pulmonology'
+            ],
+
+            lastToken: localStorage.getItem('lastToken') || ''
+        }
+        function save() {
+            localStorage.setItem('patients', JSON.stringify(S.patients));
+            localStorage.setItem('cases', JSON.stringify(S.cases));
+            localStorage.setItem('appts', JSON.stringify(S.appts));
+            localStorage.setItem('doctors', JSON.stringify(S.doctors));
+            localStorage.setItem('depts', JSON.stringify(S.depts));
+            localStorage.setItem('clinic', JSON.stringify(S.clinic));
+        }
+        const $ = sel => document.querySelector(sel);
+        const $$ = sel => Array.from(document.querySelectorAll(sel));
+        const toast = (msg) => { const t = $('#toast'); t.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 1800) }
+
+        // ======= Navigation =======
+        function showView(id) { $$('.view').forEach(v => v.classList.add('hide')); $('#' + id).classList.remove('hide'); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+        function switchRecTab(which) {
+            $('#tabCases').classList.toggle('active', which === 'cases');
+            $('#tabAppts').classList.toggle('active', which === 'appts');
+            $('#tabPayments').classList.toggle('active', which === 'payments');
+            $('#recCases').classList.toggle('hide', which !== 'cases');
+            $('#recAppts').classList.toggle('hide', which !== 'appts');
+            $('#recPayments').classList.toggle('hide', which !== 'payments');
+        }
+
+        // ======= KPIs =======
+        function refreshKPIs() {
+            $('#kpi-appts').textContent = S.appts.length;
+            $('#kpi-cases').textContent = S.cases.filter(c => c.status !== 'Completed').length;
+            $('#kpi-pending').textContent = S.cases.filter(c => !c.paid).length;
+        }
+
+        // ======= Patient Register/Login =======
+        let currentPatient = null;
+        $('#form-register').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const p = {
+                id: 'P' + (Date.now()),
+                name: $('#regName').value.trim(),
+                phone: $('#regPhone').value.trim(),
+                age: $('#regAge').value.trim(),
+                gender: $('#regGender').value,
+                pin: $('#regPIN').value.trim(),
+                addr: $('#regAddr').value.trim()
+            }
+            if (S.patients.some(x => x.phone === p.phone)) { toast('Mobile already registered'); return; }
+            S.patients.push(p); save();
+            toast('Registered. You can login now.');
+            e.target.reset();
+            fillCaseSelects();
+        })
+
+        $('#form-login').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const phone = $('#loginPhone').value.trim();
+            const pin = $('#loginPIN').value.trim();
+            const p = S.patients.find(x => x.phone === phone && x.pin === pin);
+            if (!p) { $('#loginState').textContent = 'Invalid credentials'; return; }
+            currentPatient = p; $('#loginState').innerHTML = `Logged in as <b>${p.name}</b>`; $('#form-case').classList.remove('hide');
+            fillCaseSelects();
+        })
+
+        // ======= Submit Case =======
+        function fillCaseSelects() {
+            const sel = $('#appCase');
+            sel.innerHTML = '';
+            const items = S.cases.map(c => ({ id: c.id, label: `${c.token || '—'} | ${c.patientName} (${c.dept})` }));
+            for (const it of items) { const o = document.createElement('option'); o.value = it.id; o.textContent = it.label; sel.appendChild(o); }
+        }
+        $('#form-case').addEventListener('submit', (e) => {
+            e.preventDefault(); if (!currentPatient) { toast('Please login first'); return; }
+            const c = {
+                id: 'C' + Date.now(),
+                patientId: currentPatient.id,
+                patientName: currentPatient.name,
+                dept: $('#caseDept').value,
+                date: $('#caseDate').value,
+                symptoms: $('#caseSymptoms').value.trim(),
+                status: 'New',
+                paid: false,
+                doctor: '',
+                token: ''
+            }
+            S.cases.unshift(c); save();
+            toast('Case submitted');
+            $('#form-case').reset();
+            renderTables(); fillCaseSelects(); refreshKPIs();
+        })
+
+        // ======= Reception: Appointment & Token =======
+        function nextToken() {
+            const d = new Date(); const day = String(d.getDate()).padStart(2, '0'); const mon = String(d.getMonth() + 1).padStart(2, '0');
+            const base = `${day}${mon}`; // daily prefix
+            const seq = (parseInt(localStorage.getItem('tokSeq') || '0', 10) + 1); localStorage.setItem('tokSeq', String(seq));
+            return `T${base}-${String(seq).padStart(3, '0')}`;
+        }
+        let lastPrintedToken = '';
+
+        $('#form-appointment').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = $('#appCase').value; const caseObj = S.cases.find(c => c.id === id);
+            if (!caseObj) { toast('Select a case'); return; }
+            const token = caseObj.token || nextToken();
+            caseObj.token = token; caseObj.status = 'Scheduled'; caseObj.doctor = $('#appDoc').value;
+            const ap = { token, caseId: caseObj.id, patientName: caseObj.patientName, date: $('#appDate').value, time: $('#appTime').value, doctor: $('#appDoc').value, room: $('#appRoom').value, fee: parseFloat($('#appFee').value || '0') };
+            // avoid duplicate appt per token
+            if (!S.appts.some(a => a.token === token)) S.appts.unshift(ap);
+            S.lastToken = token; lastPrintedToken = token; localStorage.setItem('lastToken', token);
+            save(); renderTables(); refreshKPIs();
+            toast(`Token ${token} created`);
+        })
+
+        function markPaid(token) {
+            const c = S.cases.find(x => x.token === token); if (!c) return; c.paid = true; save(); renderTables(); refreshKPIs(); toast('Marked paid');
+        }
+        function markCompleted(token) {
+            const c = S.cases.find(x => x.token === token); if (!c) return; c.status = 'Completed'; save(); renderTables(); refreshKPIs(); toast('Marked completed');
+        }
+
+        function printToken() {
+            const token = S.lastToken || lastPrintedToken; if (!token) { toast('No token to print'); return; }
+            const ap = S.appts.find(a => a.token === token); const c = S.cases.find(x => x.token === token);
+            const w = window.open('', 'PRINT', 'height=600,width=480');
+            const clinic = S.clinic.name || 'Satva Medical & Heart Hospital';
+            w.document.write(`<pre style="font-family:monospace">\n${clinic}\nTOKEN RECEIPT\n============================\nToken: ${token}\nPatient: ${c?.patientName || ''}\nDept: ${c?.dept || ''}\nDoctor: ${ap?.doctor || ''}\nDate: ${ap?.date || ''} ${ap?.time || ''}\nRoom: ${ap?.room || ''}\nFee: ₹${ap?.fee || 0}\n============================\n</pre>`);
+            w.document.close(); w.focus(); w.print(); w.close();
+        }
+
+        // ======= Doctor: queue + notes =======
+        let selectedForNotes = null;
+        function selectForNotes(token) { selectedForNotes = token; $('#noteToken').value = token; toast('Loaded into notes'); }
+
+        $('#form-notes').addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!selectedForNotes) { toast('Select a case in queue'); return; }
+            const c = S.cases.find(x => x.token === selectedForNotes); if (!c) { toast('Not found'); return; }
+            c.notes = $('#noteText').value.trim(); c.rx = $('#rxText').value.trim(); c.status = 'Completed';
+            save(); renderTables(); refreshKPIs(); toast('Saved & completed');
+            e.target.reset(); selectedForNotes = null; $('#noteToken').value = '';
+        })
+
+        // ======= Admin =======
+        function saveClinic() { S.clinic = { name: $('#clinicName').value.trim(), addr: $('#clinicAddr').value.trim() }; save(); toast('Clinic saved') }
+        $('#form-dept').addEventListener('submit', e => { e.preventDefault(); const v = $('#deptName').value.trim(); if (!v) return; S.depts.push(v); save(); $('#deptName').value = ''; renderAdmin(); toast('Department added') })
+        $('#form-doc').addEventListener('submit', e => { e.preventDefault(); const n = $('#docName').value.trim(); const d = $('#docDept').value.trim(); if (!n || !d) return; S.doctors.push({ name: n, dept: d }); save(); $('#docName').value = ''; $('#docDept').value = ''; renderAdmin(); toast('Doctor added') })
+
+        function removeDept(i) { S.depts.splice(i, 1); save(); renderAdmin(); }
+        function removeDoc(i) { S.doctors.splice(i, 1); save(); renderAdmin(); }
+
+        function renderAdmin() {
+            // clinic
+            $('#clinicName').value = S.clinic.name || ''; $('#clinicAddr').value = S.clinic.addr || '';
+            // dept list
+            const ul = $('#listDept'); ul.innerHTML = '';
+            S.depts.forEach((d, i) => { const li = document.createElement('li'); li.innerHTML = `${d} <button class="btn small ghost" onclick="removeDept(${i})">Remove</button>`; ul.appendChild(li); })
+            // docs
+            const ud = $('#listDoc'); ud.innerHTML = '';
+            S.doctors.forEach((d, i) => { const li = document.createElement('li'); li.innerHTML = `${d.name} <span class="hint">(${d.dept})</span> <button class="btn small ghost" onclick="removeDoc(${i})">Remove</button>`; ud.appendChild(li); })
+            // update selects
+            // dept select in patient form
+            const deptSel = $('#caseDept'); deptSel.innerHTML = '<option value="">Select</option>' + S.depts.map(d => `<option>${d}</option>`).join('');
+            // doctor select
+            const docSel = $('#appDoc'); docSel.innerHTML = S.doctors.map(d => `<option>${d.name} (${d.dept})</option>`).join('');
+        }
+
+        // ======= Tables =======
+        function renderTables() {
+            // cases
+            const tc = $('#tbl-cases'); tc.innerHTML = '';
+            S.cases.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${c.token || '-'}</td><td>${c.patientName}</td><td>${c.dept}</td>
+          <td><span class="status"><span class="dot ${c.status === 'Completed' ? 'ok' : (c.paid ? '' : 'danger')}"></span>${c.status}${c.paid ? '' : ' · Unpaid'}</span></td>
+          <td>${c.doctor || '-'}</td>
+          <td>
+            <button class="btn small ghost" onclick="markPaid('${c.token}')">Mark Paid</button>
+            <button class="btn small ghost" onclick="markCompleted('${c.token}')">Complete</button>
+          </td>`;
+                tc.appendChild(tr);
+            })
+
+            // appointments
+            const ta = $('#tbl-appts'); ta.innerHTML = '';
+            S.appts.forEach(a => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${a.token}</td><td>${a.patientName}</td><td>${a.date}</td><td>${a.time}</td><td>${a.doctor}</td><td>${a.room || ''}</td>`;
+                ta.appendChild(tr);
+            })
+
+            // payments
+            const tp = $('#tbl-payments'); tp.innerHTML = '';
+            S.cases.filter(c => !c.paid && c.token).forEach(c => {
+                const a = S.appts.find(x => x.caseId === c.id);
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${c.token}</td><td>${c.patientName}</td><td>₹${a?.fee || 0}</td><td>${c.paid ? 'Paid' : 'Pending'}</td>
+                        <td><button class="btn small" onclick="markPaid('${c.token}')">Take Payment</button></td>`;
+                tp.appendChild(tr);
+            })
+
+            // doctor queue
+            const dq = $('#tbl-doc-queue'); dq.innerHTML = '';
+            S.cases.filter(c => c.status !== 'Completed').forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${c.token || '-'}</td><td>${c.patientName}</td><td>${c.dept}</td><td>${c.symptoms || ''}</td><td>${c.status}</td>
+          <td><button class="btn small" onclick="selectForNotes('${c.token}')">Open</button></td>`;
+                dq.appendChild(tr);
+            })
+
+            fillCaseSelects();
+        }
+
+        // ======= CSV Export =======
+        function exportCSV(type) {
+            let rows = []; let name = 'export';
+            if (type === 'cases') { rows = [['token', 'patient', 'dept', 'status', 'paid', 'doctor', 'symptoms']].concat(S.cases.map(c => [c.token, c.patientName, c.dept, c.status, c.paid, c.doctor, c.symptoms])); name = 'cases'; }
+            if (type === 'appts') { rows = [['token', 'patient', 'date', 'time', 'doctor', 'room', 'fee']].concat(S.appts.map(a => [a.token, a.patientName, a.date, a.time, a.doctor, a.room, a.fee])); name = 'appointments'; }
+            const csv = rows.map(r => r.map(x => `"${(x ?? '').toString().replace(/"/g, '""')}"`).join(',')).join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' }); const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `${name}.csv`; a.click(); URL.revokeObjectURL(url);
+        }
+
+        // ======= Demo / Utilities =======
+        function clearDemo() { if (confirm('Clear all demo data?')) { localStorage.clear(); location.reload(); } }
+
+        // dark mode toggle label only (colors already dark); keep as demo state
+        $('#dmToggle').addEventListener('click', () => {
+            const b = $('#dmToggle'); const on = b.getAttribute('aria-pressed') === 'true'; b.setAttribute('aria-pressed', String(!on)); toast('Theme toggled');
+        })
+
+        // Seed with a sample patient & case for demo
+        if (S.patients.length === 0) {
+            const demoP = { id: 'P100', name: 'Aarav Mehta', phone: '9998887776', age: 29, gender: 'Male', pin: '1234', addr: 'Ahmedabad' }; S.patients.push(demoP);
+            const demoC = { id: 'C100', patientId: 'P100', patientName: 'Aarav Mehta', dept: 'General Medicine', date: new Date().toISOString().slice(0, 10), symptoms: 'Fever, headache', status: 'New', paid: false, doctor: '', token: '' }; S.cases.push(demoC); save();
+        }
+
+        // Initial paint
+        renderAdmin(); renderTables(); refreshKPIs();
+        const doctorFilter = document.getElementById('doctorFilter');
+        const doctorList = document.getElementById('doctorList');
+
+        // Function to render doctors list
+        function renderDoctors(dept = '') {
+            doctorList.innerHTML = '';
+            let filteredDocs = dept ? S.docs.filter(d => d.dept === dept) : S.docs;
+            filteredDocs.forEach(doc => {
+                let li = document.createElement('li');
+                li.textContent = `${doc.name} — ${doc.dept}`;
+                doctorList.appendChild(li);
+            });
+        }
+
+        // Filter doctors when dropdown changes
+        function filterDoctors() {
+            const dept = doctorFilter.value;
+            renderDoctors(dept);
+        }
+
+        // Render all doctors by default
+        renderDoctors();
+    </script>
+</body>
+
+</html>
